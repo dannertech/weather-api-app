@@ -6,13 +6,12 @@
 //
 
 import SwiftUI
-struct Current: Decodable {
-    var temperature: Int = 0;
-    var weatherDescription: String = "It's Zero"
-}
 
 struct ContentView: View {
-@State private var city: String = "";
+    //api key 400f71b4f6287778267b62da4e1f8ad9
+    @State private var countryCode: Int = 840;
+    @State private var city: String = "";
+    private var baseUrl: String = URL(string: "http://api.openweathermap.org/geo/1.0/direct?q=")
     var body: some View {
         VStack {
             Image(systemName: "globe")
