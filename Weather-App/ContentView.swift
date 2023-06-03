@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     //api key 400f71b4f6287778267b62da4e1f8ad9
+    @State private var stateCode: String = "";
     @State private var countryCode: Int = 840;
     @State private var city: String = "";
     private var baseUrl = URL(string: "http://api.openweathermap.org/geo/1.0/direct?q=")
