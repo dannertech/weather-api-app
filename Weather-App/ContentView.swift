@@ -12,18 +12,7 @@ struct Current: Decodable {
 }
 
 struct ContentView: View {
-    struct Weather: Decodable {
-        let current: Current;
-    }
-//api key 699463c71425774794752ac6655624d5
-    let url = URL(string: "https://api.weatherstack.com/current?access_key=699463c71425774794752ac6655624d5&query=")
-    
 @State private var city: String = "";
-    
-@State var current: Current = Current();
-    
-
-    
     var body: some View {
         VStack {
             Image(systemName: "globe")
