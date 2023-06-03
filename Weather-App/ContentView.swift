@@ -29,7 +29,7 @@ struct ContentView: View {
             Image(systemName: "globe")
                 .imageScale(.large)
                 .foregroundColor(.accentColor)
-            Text("Hello, world!")
+            
             TextField("Where Are You?", text: $city).textFieldStyle(.roundedBorder)
                 .padding()
             Button("Submit") {
