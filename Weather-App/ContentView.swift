@@ -64,20 +64,18 @@ enum StateAbbrev: String, CaseIterable, Identifiable {
 
 struct Coords: Decodable {
     let name: String
-    let lat: Int
-    let lon: Int
+    let lat: Double
+    let lon: Double
 }
 
-struct CoordsResponse: Decodable {
-    let response: [Coords]
-}
+
 
 struct ContentView: View {
 
   
     @State private var selectedState: StateAbbrev = .TX
     
-    @State private var stateCode: String = "";
+    @State private var stateCode: String = StateAbbrev.TX.rawValue;
     @State private var countryCode: Int = 840;
     @State private var state: String = "";
     @State private var city: String = "";
@@ -92,11 +90,13 @@ struct ContentView: View {
         }
         let baseUrlCoords = URL(string: "http://api.openweathermap.org/geo/1.0/direct?q=\(city),\(stateCode),\(countryCode)&appid=400f71b4f6287778267b62da4e1f8ad9")!
         do {
+            errorMessage = "";
             let (data,response) = try await URLSession.shared.data(from: baseUrlCoords)
-            let decoded = try JSONDecoder().decode(CoordsResponse.self, from: data)
-             print(decoded.response);
+            let decoded = try JSONDecoder().decode([Coords].self, from: data)
+            
+             print(decoded);
              
-             return decoded.response;
+            return decoded;
         } catch {
             
             print(error)
