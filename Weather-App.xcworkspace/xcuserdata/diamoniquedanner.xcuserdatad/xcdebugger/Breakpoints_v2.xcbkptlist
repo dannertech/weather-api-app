@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   uuid = "A146835D-93BE-4C6B-AA71-1CB5A3EFA6E3"
+   type = "0"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A56B988C-AA3D-48BF-B124-19DEC344FFD1"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Weather-App/ContentView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "114"
+            endingLineNumber = "114"
+            landmarkName = "fetchCoords()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "A56B988C-AA3D-48BF-B124-19DEC344FFD1 - 89ce4aff41359006"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for Weather_App.ContentView.fetchCoords() async throws -&gt; Swift.Array&lt;Weather_App.Coords&gt;"
+                  moduleName = "Weather-App"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/diamoniquedanner/Desktop/Weather-App/Weather-App/ContentView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "106"
+                  endingLineNumber = "106"
+                  offsetFromSymbolStart = "1028">
+               </Location>
+               <Location
+                  uuid = "A56B988C-AA3D-48BF-B124-19DEC344FFD1 - c315b52d8c2af207"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(4) suspend resume partial function for Weather_App.ContentView.fetchCoords() async throws -&gt; Swift.Array&lt;Weather_App.Coords&gt;"
+                  moduleName = "Weather-App"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/diamoniquedanner/Desktop/Weather-App/Weather-App/ContentView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "106"
+                  endingLineNumber = "106"
+                  offsetFromSymbolStart = "348">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>

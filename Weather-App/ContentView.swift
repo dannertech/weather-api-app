@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+
+
 enum StateAbbrev: String, CaseIterable, Identifiable {
     case AL,
     AK,
@@ -68,6 +70,14 @@ struct Coords: Decodable {
     let lon: Double
 }
 
+struct Current: Decodable {
+    let temp: String
+}
+
+struct Weather: Decodable {
+    let current: Current
+}
+
 
 
 struct ContentView: View {
@@ -80,8 +90,6 @@ struct ContentView: View {
     @State private var state: String = "";
     @State private var city: String = "";
     @State private var errorMessage: String = "";
-    
-    private var baseUrlWeather = URL(string: "https://api.openweathermap.org/data/3.0/onecall?lat=")
     
     func fetchCoords() async throws -> [Coords] {
         if(city == ""){
@@ -107,15 +115,19 @@ struct ContentView: View {
       
     }
     
+    func fetchWeather(lat: Double, lon: Double){
+         var baseUrlWeather = URL(string: "https://api.openweathermap.org/data/3.0/onecall?lat=")
+        
+        
+    }
+    
+    
     func buttonPressed (){
         
         Task {
             let response = try await fetchCoords()
+           
         }
-        
-            
-        
-         
     }
     var body: some View {
         VStack {
