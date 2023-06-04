@@ -87,17 +87,39 @@ struct ContentView: View {
     
     func fetchCoords() async throws -> [Coords] {
         if(city == ""){
-            
+            errorMessage = "Please input a valid city";
+            return [];
         }
         let baseUrlCoords = URL(string: "http://api.openweathermap.org/geo/1.0/direct?q=\(city),\(stateCode),\(countryCode)&appid=400f71b4f6287778267b62da4e1f8ad9")!
-       let (data,response) = try await URLSession.shared.data(from: baseUrlCoords)
-       let decoded = try JSONDecoder().decode(CoordsResponse.self, from: data)
-        print(decoded.response);
-        return decoded.response;
+        do {
+            let (data,response) = try await URLSession.shared.data(from: baseUrlCoords)
+            let decoded = try JSONDecoder().decode(CoordsResponse.self, from: data)
+             print(decoded.response);
+             
+             return decoded.response;
+        } catch {
+            
+            print(error)
+            
+            return []
+        }
+        
+      
+    }
+    
+    func buttonPressed (){
+        
+        Task {
+            let response = try await fetchCoords()
+        }
+        
+            
+        
+         
     }
     var body: some View {
         VStack {
-            errorMessage.count > 0 ? Text("Error Message") : Text("")
+            errorMessage.count > 0 ? Text("Please input a valid city") : Text("")
             Image(systemName: "globe")
                 .imageScale(.large)
                 .foregroundColor(.accentColor)
@@ -110,11 +132,8 @@ struct ContentView: View {
                 }
                 
             }
-            Button("Submit") {
-                //when user presses submit, call api with state code/abbreviation, city name, and country code
-                //call coords api first
-                //call weather api second
-                /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Action@*/ /*@END_MENU_TOKEN@*/
+            Button("Submit"){
+                buttonPressed()
             }
         }
         .padding()
