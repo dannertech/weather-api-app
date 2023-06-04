@@ -62,16 +62,35 @@ enum StateAbbrev: String, CaseIterable, Identifiable {
     var id: Self {self}
 }
 
+struct Coords: Decodable {
+    let name: String
+    let lat: Int
+    let lon: Int
+}
+
+struct CoordsResponse: Decodable {
+    let response: [Coords]
+}
+
 struct ContentView: View {
 
   
     @State private var selectedState: StateAbbrev = .TX
-    //api key 400f71b4f6287778267b62da4e1f8ad9
+    
     @State private var stateCode: String = "";
     @State private var countryCode: Int = 840;
     @State private var state: String = "";
     @State private var city: String = "";
-    private var baseUrl = URL(string: "http://api.openweathermap.org/geo/1.0/direct?q=")
+    
+    private var baseUrlWeather = URL(string: "https://api.openweathermap.org/data/3.0/onecall?lat=")
+    
+    func fetchCoords() async throws -> [Coords] {
+        let baseUrlCoords = URL(string: "http://api.openweathermap.org/geo/1.0/direct?q=\(city),\(stateCode),\(countryCode)&appid=400f71b4f6287778267b62da4e1f8ad9")!
+       let (data,response) = try await URLSession.shared.data(from: baseUrlCoords)
+       let decoded = try JSONDecoder().decode(CoordsResponse.self, from: data)
+        print(decoded.response);
+        return decoded.response;
+    }
     var body: some View {
         VStack {
             Image(systemName: "globe")
@@ -80,11 +99,16 @@ struct ContentView: View {
             
             TextField("Where Are You?", text: $city).textFieldStyle(.roundedBorder)
                 .padding()
-            Picker(selection: /*@START_MENU_TOKEN@*/.constant(1)/*@END_MENU_TOKEN@*/, label: /*@START_MENU_TOKEN@*/Text("Picker")/*@END_MENU_TOKEN@*/) {
-                /*@START_MENU_TOKEN@*/Text("1").tag(1)/*@END_MENU_TOKEN@*/
-                /*@START_MENU_TOKEN@*/Text("2").tag(2)/*@END_MENU_TOKEN@*/
+            Picker("State", selection: $selectedState) {
+                ForEach(StateAbbrev.allCases){ state in
+                    Text(state.rawValue)
+                }
+                
             }
             Button("Submit") {
+                //when user presses submit, call api with state code/abbreviation, city name, and country code
+                //call coords api first
+                //call weather api second
                 /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Action@*/ /*@END_MENU_TOKEN@*/
             }
         }
