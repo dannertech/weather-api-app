@@ -81,10 +81,14 @@ struct ContentView: View {
     @State private var countryCode: Int = 840;
     @State private var state: String = "";
     @State private var city: String = "";
+    @State private var errorMessage: String = "";
     
     private var baseUrlWeather = URL(string: "https://api.openweathermap.org/data/3.0/onecall?lat=")
     
     func fetchCoords() async throws -> [Coords] {
+        if(city == ""){
+            
+        }
         let baseUrlCoords = URL(string: "http://api.openweathermap.org/geo/1.0/direct?q=\(city),\(stateCode),\(countryCode)&appid=400f71b4f6287778267b62da4e1f8ad9")!
        let (data,response) = try await URLSession.shared.data(from: baseUrlCoords)
        let decoded = try JSONDecoder().decode(CoordsResponse.self, from: data)
@@ -93,6 +97,7 @@ struct ContentView: View {
     }
     var body: some View {
         VStack {
+            errorMessage.count > 0 ? Text("Error Message") : Text("")
             Image(systemName: "globe")
                 .imageScale(.large)
                 .foregroundColor(.accentColor)
