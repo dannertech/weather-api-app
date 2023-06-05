@@ -82,9 +82,9 @@ struct Weather: Decodable {
 
 struct ContentView: View {
 
-  
-    @State private var selectedState: StateAbbrev = .TX
     
+    @State private var selectedState: StateAbbrev = .TX
+    @State private var temp : Double  = 0;
     @State private var stateCode: String = StateAbbrev.TX.rawValue;
     @State private var countryCode: Int = 840;
     @State private var state: String = "";
@@ -140,11 +140,14 @@ struct ContentView: View {
             let response = try await fetchCoords()
             let weatherResponse = try await fetchWeather(lat: response[0].lat, lon: response[0].lon)
             
-            print(weatherResponse)
+            temp = (weatherResponse.temp - 273.15) * 9/5 + 32
+            
+            
         }
     }
     var body: some View {
         VStack {
+            Text($temp as! String)
             errorMessage.count > 0 ? Text("Please input a valid city") : Text("")
             Image(systemName: "globe")
                 .imageScale(.large)
