@@ -71,7 +71,7 @@ struct Coords: Decodable {
 }
 
 struct Current: Decodable {
-    let temp: String
+    let temp: Double
 }
 
 struct Weather: Decodable {
@@ -115,9 +115,21 @@ struct ContentView: View {
       
     }
     
-    func fetchWeather(lat: Double, lon: Double){
-         var baseUrlWeather = URL(string: "https://api.openweathermap.org/data/3.0/onecall?lat=")
-        
+    func fetchWeather(lat: Double, lon: Double)async -> Current{
+         var baseUrlWeather = URL(string: "https://api.openweathermap.org/data/3.0/onecall?lat=\(lat)&lon=\(lon)&appid=400f71b4f6287778267b62da4e1f8ad9")!
+        do {
+            errorMessage = "";
+            let (data,response) = try await URLSession.shared.data(from: baseUrlWeather)
+            
+            let decoded = try JSONDecoder().decode(Weather.self, from: data)
+            
+            return decoded.current
+        } catch {
+            print(error)
+            let emptyCurrent = Current(temp: 0);
+            
+            return emptyCurrent
+        }
         
     }
     
@@ -126,7 +138,9 @@ struct ContentView: View {
         
         Task {
             let response = try await fetchCoords()
-           
+            let weatherResponse = try await fetchWeather(lat: response[0].lat, lon: response[0].lon)
+            
+            print(weatherResponse)
         }
     }
     var body: some View {
